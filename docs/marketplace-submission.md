@@ -6,7 +6,7 @@ This plugin targets [Grok Build's official marketplace](https://github.com/xai-o
 
 Complete these checks in a real Grok Build session before submitting:
 
-- Load the plugin with `--plugin-dir`, inspect all three skills and the `revor` server.
+- Install the plugin with `grok plugin install <path-or-git-url>`, inspect all three skills and the `revor` server.
 - Complete browser OAuth, then check tool discovery and a lightweight account/credits read using a tool actually exposed by the server.
 - With an account authorized to incur research charges, run one company research task and one prospect discovery task. Confirm result retrieval and the distinct prospect preparation/search lifecycles.
 - Check that unauthorized, insufficient-permission, and insufficient-credit responses are surfaced without duplicate creation calls. Exercise these only with dedicated test credentials or existing error states; do not change production account data just to induce errors.

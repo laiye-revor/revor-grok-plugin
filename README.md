@@ -18,14 +18,16 @@ Example requests:
 
 ## Installation
 
-With [Grok Build](https://docs.x.ai/build) installed, clone the repository and load the plugin:
+With [Grok Build](https://docs.x.ai/build/overview) installed, install the plugin:
 
 ```bash
-git clone https://github.com/laiye-revor/revor-grok-plugin.git
-grok --plugin-dir ./revor-grok-plugin
+grok plugin install https://github.com/laiye-revor/revor-grok-plugin.git
+grok
 ```
 
 Open `/mcps`, select `revor`, and sign in to your REVOR AI account through the browser. The bundled skills are available in `/skills`.
+
+For local development, clone this repository and run `grok plugin install ./revor-grok-plugin` from its parent directory.
 
 ### MCP-only setup
 
