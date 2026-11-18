@@ -1,0 +1,13 @@
+{
+  "name": "revor-ai",
+  "version": "0.1.0",
+  "description": "Find target companies, research businesses with public-web and customs evidence, and identify business contacts through REVOR AI.",
+  "author": {
+    "name": "REVOR AI",
+    "url": "https://revor.ai"
+  },
+  "homepage": "https://revor.ai",
+  "repository": "https://github.com/laiye-revor/revor-grok-plugin",
+  "license": "MIT",
+  "keywords": ["revor", "revor ai", "revor.ai"]
+}

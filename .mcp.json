@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "revor": {
+      "type": "http",
+      "url": "https://revor.ai/api/mcp"
+    }
+  }
+}
