@@ -1,50 +1,46 @@
 # REVOR AI for Grok Build
 
-Official REVOR AI plugin for company discovery, company research, and business contact search in Grok Build.
-
-This repository contains the public plugin configuration and three skills. REVOR AI's hosted MCP service performs the research; the backend and datasets are not distributed with this plugin.
+The official [REVOR AI](https://revor.ai) plugin for Grok Build. Discover target companies, research businesses, and find decision-makers directly from your conversation.
 
 ## Capabilities
 
-| Skill | Purpose |
+| Skill | Description |
 | --- | --- |
-| `revor-company-discovery` | Build a persistent prospect list from an ideal customer profile and return qualified companies. |
-| `revor-company-research` | Research a company using public sources and, when relevant, verified customs trade evidence. |
-| `revor-contact-search` | Find role-focused business contacts at a verified company domain. |
+| `revor-company-discovery` | Find and qualify companies by industry, geography, business model, and ideal customer profile. |
+| `revor-company-research` | Research company backgrounds, products, markets, and trading relationships using public sources and customs data. |
+| `revor-contact-search` | Identify relevant business contacts, with work emails and LinkedIn profiles where available. |
 
 Example requests:
 
 - “Use Revor to find industrial automation distributors in Germany.”
-- “Research this company with Revor and summarize its business and trading relationships.”
+- “Research Siemens with Revor and summarize its business and trading relationships.”
 - “Find procurement contacts at example.com using Revor.”
 
-## Install locally
+## Installation
 
-Install [Grok Build](https://docs.x.ai/build), then clone this repository and load it as a local plugin:
+With [Grok Build](https://docs.x.ai/build) installed, clone the repository and load the plugin:
 
 ```bash
 git clone https://github.com/laiye-revor/revor-grok-plugin.git
 grok --plugin-dir ./revor-grok-plugin
 ```
 
-Open `/plugins` or `/skills` to inspect the plugin. Open `/mcps` to inspect the `revor` connection and authenticate through your browser. Sign in to your REVOR AI account and review the connection permissions.
+Open `/mcps`, select `revor`, and sign in to your REVOR AI account through the browser. The bundled skills are available in `/skills`.
 
-This repository has not yet been listed in the official xAI marketplace. Local installation does not require a marketplace listing.
+### MCP-only setup
 
-### Connect only the MCP server
-
-If you only need tools without the bundled skills:
+To connect the REVOR AI MCP server directly:
 
 ```bash
 grok mcp add --transport http revor https://revor.ai/api/mcp
 grok mcp doctor revor
 ```
 
-Choose either the plugin's server or a manually configured server to avoid duplicate connections.
+Use this as an alternative to the bundled plugin connection.
 
 ### Optional API key authentication
 
-If you prefer an API key, create a suitably scoped key at [REVOR AI API Keys](https://revor.ai/my-api-keys). Set `REVOR_API_KEY` using your private shell environment or secret manager. In your user-level `~/.grok/config.toml`, configure:
+Create a key at [REVOR AI API Keys](https://revor.ai/my-api-keys) and set it as `REVOR_API_KEY` in your environment or secret manager. Add the following to your user-level `~/.grok/config.toml`:
 
 ```toml
 [mcp_servers.revor]
@@ -52,47 +48,26 @@ url = "https://revor.ai/api/mcp"
 headers = { "x-api-key" = "${REVOR_API_KEY}" }
 ```
 
-The value above is a literal environment-variable reference. Never paste a key into chat, commit it, or put its actual value in a project configuration. Check `grok inspect` and `/mcps` to verify the loaded configuration and avoid duplicate servers. For initial diagnosis, use the MCP-only installation route above.
+Grok resolves `${REVOR_API_KEY}` from your environment. Keep the key out of chat messages and source control.
 
-## Account, permissions, and credits
+## Service access
 
-A REVOR AI account is required. Availability, rate limits, and charges depend on your account plan, permissions, and credits. Company searches, public-web research, contact searches, and customs reports may consume credits even though they do not send messages.
+A REVOR AI account is required. Research and discovery tasks may consume credits. Feature availability and usage limits depend on your plan and connection permissions.
 
-The three skills cover research workflows. The shared MCP service can also expose management and outreach tools according to the connection's permissions. This plugin does not itself impose a tool allowlist. Review and disable unused capabilities in your REVOR AI connection/API key settings; omitting an outreach skill does not revoke sending permissions.
+Manage permitted capabilities in your REVOR AI connection or API key settings. The shared MCP service may expose additional account-management and outreach tools when enabled for your connection.
 
-## Network and data handling
+## Connection and data
 
-- MCP endpoint: `https://revor.ai/api/mcp`.
-- Browser authentication and OAuth discovery use the same `https://revor.ai` origin, including `/api/mcp-auth` and `/.well-known/` metadata routes. Browser sign-in may redirect to the identity provider you select.
-- Credentials: an account-authorized OAuth connection, or an API key supplied privately in an authentication header.
-- Queries, filters, company domains, and tool arguments are sent to REVOR AI for processing. Results can include public-source evidence and business contact information. Submit only data you are authorized to process.
-- The plugin adds no local executable hooks, dependency installers, telemetry code, or credential-file readers. Hosted-service data handling is governed by REVOR AI's service terms and policies, available on [revor.ai](https://revor.ai).
-- The MIT license covers this repository's plugin files. It does not grant access to the hosted service or redistribute its datasets.
+The plugin connects to `https://revor.ai/api/mcp` using OAuth or an API key. OAuth discovery and authorization use `https://revor.ai/.well-known/` and `https://revor.ai/api/mcp-auth`; browser sign-in may use your selected identity provider.
 
-## Validation and release status
+Queries, filters, company domains, and tool arguments are sent to REVOR AI for processing under its service terms and policies. Results may include public-source evidence, customs records, and business contact information.
 
-Run the dependency-free package checks with Node.js 22 or later:
-
-```bash
-node scripts/validate.mjs
-```
-
-Checks cover the manifest, remote MCP configuration, skill metadata, local documentation links, and the expected package contents. They do not test authenticated service behavior.
-
-Before submitting to the official marketplace, complete the [release checklist](docs/marketplace-submission.md), including an actual Grok Build OAuth and tool-call smoke test. Source preparation and a published GitHub repository do not imply marketplace approval or completed runtime testing.
-
-## Links
+## Documentation and support
 
 - [REVOR AI](https://revor.ai)
 - [MCP setup documentation](https://revor.ai/docs/mcp/install)
 - [Report an issue](https://github.com/laiye-revor/revor-grok-plugin/issues)
-- [Grok Build plugin documentation](https://docs.x.ai/build/features/skills-plugins-marketplaces)
-- [Grok Build MCP documentation](https://docs.x.ai/build/features/mcp-servers)
 
-## 中文说明
+## License
 
-这是 REVOR AI 的 Grok Build 插件，提供企业发现、企业背调和联系人搜索三个 skill，复用现有远程 MCP 服务。
-
-克隆仓库后运行 `grok --plugin-dir ./revor-grok-plugin`，在 `/mcps` 中通过浏览器登录并检查授权。研究任务可能消耗 Revor 积分；无需公开业务后端，也不要在聊天或仓库中填写密钥。
-
-当前支持从本地目录加载，尚未上架官方市场。发布前仍需完成真实 Grok Build 授权和调用验收。
+[MIT](LICENSE). The license applies to the plugin files in this repository. Access to REVOR AI services and data is subject to the applicable service terms.
